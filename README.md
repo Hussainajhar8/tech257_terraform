@@ -19,6 +19,20 @@ Popular tools for IaC include Terraform, Ansible, AWS CloudFormation, Azure Reso
 ### Who is using IaC in the industry
 Companies like Netflix, NASA, Red Hat, Atlassian, and Walmart use IaC for managing infrastructure and automating deployments.
 
+## Pull and Push Configuration Management in IaC
+
+- **Push Configuration**: Configuration changes are actively pushed from a central server to managed nodes, for example with Ansible, you write playbooks defining the desired state, and Ansible pushes these configurations to the nodes to ensure they match the desired state.
+- **Pull Configuration**: Managed nodes periodically pull configurations from a central server to converge towards the desired state, for example In SaltStack, you define the desired state in Salt states (SLS files), and the managed nodes pull these states periodically to converge towards the desired state.
+
+### Tools supporting Pull/Push
+- **Push-based**: Tools like Ansible, Puppet, and Chef predominantly use a push-based approach. Ansible, for example, executes tasks on managed nodes by connecting to them remotely and pushing configurations.
+  
+- **Pull-based**: Tools like SaltStack and AWS OpsWorks support pull-based configuration management. These tools maintain a centralized repository of configuration states, and managed nodes pull configurations from this repository.
+
+## Desired State vs Current State
+- **Desired State**: In configuration management, the desired state refers to how the infrastructure should be configured according to the defined policies, configurations, or playbooks. It represents the ideal configuration that you want your infrastructure to be in.
+
+- **Current State**: The current state is the actual configuration or state of the infrastructure at any given time. It may deviate from the desired state due to manual changes, drift, or other factors.
 
 # Getting Started with Terraform
 
@@ -67,3 +81,29 @@ To begin using Terraform for managing infrastructure on AWS, follow these steps:
   ![alt text](img/image-8.png)
 
 By following these steps, we can get a glimpse of how powerful terraform is and see that we can effectively manage infrastructure on AWS using Terraform, allowing for quick provisioning, modification, and destruction of resources.
+
+## Creating Security Group with Terraform
+
+1. **Define Security Group Rules:**
+   - Create a Terraform configuration file specifying the rules to allow access on ports 22, 3000, and 80.
+   - We should utilize dynamic blocks for improved readability and scalability.
+   ![alt text](img/image-9.png)
+
+2. **Add Security Group to Instance Resource:**
+   - Associate the created security group with the `aws_instance` resource in your Terraform configuration.
+  ![alt text](img/image-10.png)
+
+3. **Apply Terraform Changes:**
+   - Run `terraform apply` to apply the changes defined in your Terraform configuration.
+   - Verify that the security group is created successfully.
+    ![alt text](img/image-11.png)
+
+4. **Confirm Rules Configuration:**
+   - Check the AWS Management Console or use AWS CLI commands to confirm that the security group has the intended rules configured.
+   - Ensure that port 22 is allowed from all, port 3000 is allowed from all, and port 80 is allowed from all.
+    ![alt text](img/image-12.png)
+
+5. **Attach Key Pair and Security Group to EC2:**
+   - Confirm that the EC2 instance is launched with the specified key pair and attached security group.
+   - Verify that access to the EC2 instance is allowed on ports 22, 3000, and 80 as configured.
+
