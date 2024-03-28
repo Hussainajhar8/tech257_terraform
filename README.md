@@ -96,7 +96,7 @@ By following these steps, we can get a glimpse of how powerful terraform is and 
 
 3. **Apply Terraform Changes:**
    - Run `terraform apply` to apply the changes defined in your Terraform configuration.
-   - Verify that the security group is created successfully.
+   - Verify that the security group is created successfully.git ad
     ![alt text](img/image-11.png)
 
 4. **Confirm Rules Configuration:**
@@ -108,3 +108,45 @@ By following these steps, we can get a glimpse of how powerful terraform is and 
    - Confirm that the EC2 instance is launched with the specified key pair and attached security group.
    - Verify that access to the EC2 instance is allowed on ports 22, 3000, and 80 as configured.
 
+## Using Variables in Terraform Configuration
+
+To enhance security and maintainability in our Terraform configuration, we will utilize variables instead of hardcoding values this makes our configuration files DRY.
+
+1. **Create Variable Configuration:**
+   - Create a `variables.tf` file to define variables for values that may change or should not be hardcoded, in our case we will do this for every value.
+   - We must define variables for sensitive information such as access tokens, ensuring they are not stored in version control by adding `variables.tf` to the `.gitignore` file.
+   ![alt text](img/image-14.png)
+
+2. **Apply Terraform Changes:**
+   - Run `terraform plan` and `terraform apply` again to ensure that the variables are configured properly.
+   ![alt text](img/image-15.png)
+
+Here we ensure that sensitive information is not exposed in our Terraform configuration and that our infrastructure is provisioned securely and efficiently.
+
+
+## Creating GitHub Repository with Terraform
+
+Now we will add a GitHub repository using Terraform.
+
+1. **Generate Personal Access Token (PAT) on GitHub:**
+   - Go to GitHub settings by clicking on your profile picture, then selecting `Settings`.<br>
+   - ![alt text](img/image-19.png)<br>
+   - Navigate to `Developer settings`<br>
+     ![alt text](img/image-20.png)<br>
+   - Choose `Personal access tokens` and click on `Generate new token`<br>
+     ![alt text](img/image-21.png)<br>
+   - Select the desired scopes for the token. For creating repositories, grant "repo" scope.<br>
+   ![alt text](img/image-22.png)<br>
+   - Optionally, customize additional permissions based on your requirements.
+   - Click on `Generate token` and securely store the generated token.
+
+2. **Configure GitHub Resource:**
+   - Refer to the Terraform documentation for GitHub to find the correct resource to create a repository.
+   - Configure the resource with the necessary parameters, including the repository name and access token variable.
+   ![alt text](img/image-16.png)
+
+3. **Apply Terraform Changes:**
+   - Run `terraform plan` and `terraform apply` to create the GitHub repository using the specified parameters.
+   ![alt text](img/image-17.png)
+   - Confirm that the repository has been successfully created by checking GitHub or using Terraform outputs.
+   ![alt text](img/image-18.png)

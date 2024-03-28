@@ -1,3 +1,27 @@
+terraform {
+  required_providers {
+    github = {
+      source = "integrations/github"
+      version = "6.2.1"
+    }
+    aws = {
+      source = "hashicorp/aws"
+    }
+  }
+}
+
+provider "github" {
+  token = var.github_token
+  # Configuration options
+}
+
+resource "github_repository" "multi_provider_terraform" {
+  name        = var.github_name
+
+  visibility = var.github_visibility
+
+}
+
 provider "aws" {
   region = var.aws_region # This is where the resources will be created
 }
