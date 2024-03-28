@@ -1,4 +1,7 @@
+# gitignore file
+
 .gitignore
+
 # Local .terraform directories
 **/.terraform/*
 
